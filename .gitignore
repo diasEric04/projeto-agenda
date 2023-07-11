@@ -3,6 +3,7 @@ django-commands.md
 static/
 media/
 .help
+local_settings.py
 
 # Django #
 *.log

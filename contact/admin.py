@@ -12,7 +12,7 @@ class ContactAdmin(admin.ModelAdmin):
     # lista em ordem das ordens de campos no display da adminsitração
     # se botar um '-' antes do nome, é por ordem decrescente, por padrao
     # é em ordem crescente
-    ordering = ('id',)
+    ordering = ('-id',)
 
     # cria uma aba de filtro com base no campo
     # list_filter = 'created_date'
@@ -21,7 +21,7 @@ class ContactAdmin(admin.ModelAdmin):
     search_fields = ('id', 'first_name', 'last_name')
 
     # numeros de campos por pagina (cria paginação)
-    list_per_page = 1
+    list_per_page = 20
 
     # tem um botao 'mostrar tudo' se for criado a paginação acima
     # e se não for posto um max, ele vai carregador todos os dados
