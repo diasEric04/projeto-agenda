@@ -36,3 +36,8 @@ class ContactAdmin(admin.ModelAdmin):
 
     # em qual campo seja posto o bolao de link que entra no campo
     list_display_links = ('id', 'first_name')
+
+
+@admin.register(models.Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
