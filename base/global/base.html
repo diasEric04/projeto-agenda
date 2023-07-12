@@ -1,26 +1,15 @@
-{% load static %}
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} - Agenda Django</title>
-
-    <link rel="stylesheet" href="{% static 'global/css/style.css'%}">
+    {% include 'global/partials/_head.html' %}
     {% block link_css %}{% endblock link_css %}
 </head>
 <body>
-    <header class="header">
-        <h1 class="header-heading">
-            <a href="{% url 'contact:index' %}" class="header-link">
-                Agenda
-            </a>
-        </h1>
-    </header>
+    {% include 'global/partials/_header.html' %}
 
     <main class="content">
         {% block 'content' %} {% endblock 'content' %}
+        {% include 'global/partials/_pagination.html' %}
     </main>
 </body>
 </html>
