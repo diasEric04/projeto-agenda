@@ -11,8 +11,16 @@
     {% block link_css %}{% endblock link_css %}
 </head>
 <body>
-    <h1> 
-        qualquer
-    </h1>
+    <header class="header">
+        <h1 class="header-heading">
+            <a href="{% url 'contact:index' %}" class="header-link">
+                Agenda
+            </a>
+        </h1>
+    </header>
+
+    <main class="content">
+        {% block 'content' %} {% endblock 'content' %}
+    </main>
 </body>
 </html>
