@@ -5,13 +5,18 @@ from django.http import Http404, HttpRequest
 from django.core.paginator import Paginator
 
 
-def index(request):
+def index(request: HttpRequest):
     contacts = Contact.objects\
         .filter(show=True)\
         .order_by('-id')\
 
+    # cria um paginator com 10 itens por pagina
     paginator = Paginator(contacts, 10)
+
+    # o numero da pagina atual vai depender do search 'page' no url
     page_number = request.GET.get('page')
+
+    # a lista de objs com base na pagina (cada pagina retorna 10 objs)
     page_obj = paginator.get_page(page_number)
 
     context = {
@@ -46,8 +51,13 @@ def search(request: HttpRequest):
         .order_by('-id')\
         # [10:20] = [limit:offset] na consulta
 
+    # cria um paginator com 10 itens por pagina
     paginator = Paginator(contacts, 10)
+
+    # o numero da pagina atual vai depender do search 'page' no url
     page_number = request.GET.get('page')
+
+    # a lista de objs com base na pagina (cada pagina retorna 10 objs)
     page_obj = paginator.get_page(page_number)
 
     context = {
