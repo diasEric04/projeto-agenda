@@ -37,6 +37,9 @@ class Contact(models.Model):
     # arugmento: default = 'valor-default', cria um valor automatico que
     # nao precisa ser inserido na sua criação
 
+    # argumento: verbose_name = cria um valor que vai se usado no label
+    # do campo quando for usado em forms
+
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     phone = models.CharField(max_length=50)

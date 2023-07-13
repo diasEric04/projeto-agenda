@@ -3,7 +3,7 @@
     <div class="form-wrapper">
         <h2>Contact</h2>
         <form 
-            action="{% url 'contact:create' %}" 
+            action="{{ form_action }}" 
             method="POST" 
             enctype="multipart/form-data"
         >
@@ -18,7 +18,20 @@
                         </label>
                         {{ field }}
                         {{ field.errors }}
+                        {% if field.help_text %}
+                            <p class="help-text">
+                                {{ field.help_text}}
+                            </p>
+                        {% endif %}
                     </div>
+                    {% if field.name == 'picture' and field.value.url %}
+                        <div class="form-group">
+                            <img 
+                                src="{{ field.value.url }}"
+                                alt="picture {{form.first_name.value}} {{form.last_name.value}}"
+                            />
+                        </div>
+                    {% endif %}
                 {% endfor %}
             </div>
 
