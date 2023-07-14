@@ -17,30 +17,32 @@
             </p>
         {% endif %}
 
-        <div class="contact-links">
-            <a class='btn btn-link' href="{% url 'contact:update' contact.id %}">
-                Update
-            </a>
-
-            <form action="{% url 'contact:delete' contact.id %}" method='POST'>
-                {% csrf_token %}
-                {% if confirmation == 'no' %}
-                    <input type="hidden" name="confirmation" value="yes">
-                    <button class="btn btn-link btn-delete" type='submit'>
-                        Confirma?
-                    </button>         
-                {% else %}
-                    <button class="btn btn-link btn-delete" type='submit'>
-                        Delete
-                    </button>
-                {% endif %}
-                
-            </form>
-            {% if confirmation == 'no' %}
-                <a class='btn btn-link btn-cancel' href="{% url 'contact:contact' contact.id %}">
-                    Cancelar
+        {% if contact.owner == user %}
+            <div class="contact-links">
+                <a class='btn btn-link' href="{% url 'contact:update' contact.id %}">
+                    Update
                 </a>
-            {% endif %}
-        </div>
+
+                <form action="{% url 'contact:delete' contact.id %}" method='POST'>
+                    {% csrf_token %}
+                    {% if confirmation == 'no' %}
+                        <input type="hidden" name="confirmation" value="yes">
+                        <button class="btn btn-link btn-delete" type='submit'>
+                            Confirma?
+                        </button>         
+                    {% else %}
+                        <button class="btn btn-link btn-delete" type='submit'>
+                            Delete
+                        </button>
+                    {% endif %}
+                    
+                </form>
+                {% if confirmation == 'no' %}
+                    <a class='btn btn-link btn-cancel' href="{% url 'contact:contact' contact.id %}">
+                        Cancelar
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
 {% endblock 'content' %}

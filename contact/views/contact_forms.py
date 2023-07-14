@@ -3,8 +3,11 @@ from django.http import HttpRequest
 from contact.forms import ContactForm
 from django.urls import reverse
 from contact.models import Contact
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
+@login_required(login_url='contact:user/login')
 def create(request: HttpRequest):
     form_action = reverse('contact:create')
     if request.method == 'POST':
@@ -20,7 +23,10 @@ def create(request: HttpRequest):
         }
 
         if form.is_valid():
-            contact = form.save()
+            contact = form.save(commit=False)
+            contact.owner = request.user
+            contact.save()
+            messages.success(request, 'Contato criado com sucesso')
             return redirect('contact:update', contact.id)
 
         return render(
@@ -42,12 +48,14 @@ def create(request: HttpRequest):
     )
 
 
+@login_required(login_url='contact:user/login')
 def update(request: HttpRequest, contact_id):
     form_action = reverse('contact:update', args=(contact_id, ))
     contact = get_object_or_404(
         Contact,
         id=contact_id,
-        show=True
+        show=True,
+        owner=request.user
     )
 
     if request.method == 'POST':
@@ -64,6 +72,7 @@ def update(request: HttpRequest, contact_id):
 
         if form.is_valid():
             contact = form.save()
+            messages.success(request, 'Contato alterado com sucesso')
             return redirect('contact:update', contact.id)
 
         return render(
@@ -85,11 +94,13 @@ def update(request: HttpRequest, contact_id):
     )
 
 
+@login_required(login_url='contact:user/login')
 def delete(request, contact_id):
     contact = get_object_or_404(
         Contact,
         id=contact_id,
-        show=True
+        show=True,
+        owner=request.user
     )
     confirmation = request.POST.get('confirmation', 'no')
     if confirmation == 'yes':
