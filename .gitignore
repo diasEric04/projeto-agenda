@@ -1,7 +1,6 @@
 git-commands.md
 django-commands.md
-static/
-media/
+# static/
 .help
 local_settings.py
 
